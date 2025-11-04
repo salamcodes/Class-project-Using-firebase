@@ -27,8 +27,6 @@ onAuthStateChanged(auth, (user) => {
 
         getData(uid)
         getProductData(uid)
-
-
     } else {
 
     }
@@ -100,6 +98,7 @@ form.addEventListener("submit", async (event) => {
         const docRef = await addDoc(collection(db, "products"), products);
         console.log("Document written with ID: ", docRef.id);
         allProducts.push({ ...products, docId: docRef.id })
+        renderProducts(allProducts);
     } catch (e) {
         console.error("Error adding document: ", e);
     }
@@ -107,25 +106,37 @@ form.addEventListener("submit", async (event) => {
 });
 
 async function getProductData(uid) {
-    const q = query(
-        collection(db, "products"),
-        where("uid", "==", uid),
-
-    );
+    const q = query(collection(db, "products"), where("uid", "==", uid));
     const querySnapshot = await getDocs(q);
-    productContainer.innerHTML = "";
+
+    const userProducts = [];
+
     querySnapshot.forEach((doc) => {
-        productContainer.innerHTML += ` <div class="card">
-                <img src="${doc.data().productImg}" alt="Product">
-                <div class="card-content">
-                    <h4>Name : ${doc.data().productName}</h4>
-                    <p>Description : ${doc.data().Description}</p>
-                    <div class="price">Price : $${doc.data().price}</div>
-                </div>
-            </div>`
-        allProducts.unshift({ ...doc.data(), docID: doc.id });
+        userProducts.push({ ...doc.data(), docID: doc.id });
     });
-};
+
+    allProducts.length = 0;
+    allProducts.push(...userProducts);
+
+    renderProducts(allProducts);
+}
+
+function renderProducts(productsArr) {
+    productContainer.innerHTML = "";
+
+    productsArr.forEach((product) => {
+        productContainer.innerHTML += `
+      <div class="card">
+        <img src="${product.productImg}" alt="Product">
+        <div class="card-content">
+          <h4>Name: ${product.productName}</h4>
+          <p>Description: ${product.Description}</p>
+          <div class="price">Price: $${product.price}</div>
+        </div>
+      </div>
+    `;
+    });
+}
 
 
 
