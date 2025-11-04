@@ -16,6 +16,7 @@ const description = document.querySelector("#description");
 const productImg = document.querySelector(".upload-img");
 const uploadBtn = document.querySelector("#upload-btn")
 const price = document.querySelector("#price");
+const productContainer = document.querySelector(".product-grid")
 const allProducts = [];
 let productImage;
 onAuthStateChanged(auth, (user) => {
@@ -25,6 +26,7 @@ onAuthStateChanged(auth, (user) => {
         console.log(uid);
 
         getData(uid)
+        getProductData(uid)
 
 
     } else {
@@ -66,7 +68,7 @@ var myWidget = cloudinary.createUploadWidget(
     (error, result) => {
         if (!error && result && result.event === "success") {
             console.log("Done! Here is the image info: ", result.info);
-            productImage = result.info.secure_url
+            productImage = result.info.secure_url;
 
         }
     }
@@ -90,6 +92,7 @@ form.addEventListener("submit", async (event) => {
         productName: productName.value,
         Description: description.value,
         price: price.value,
+        productImg: productImage,
         uid: user.uid
     }
 
@@ -101,6 +104,28 @@ form.addEventListener("submit", async (event) => {
         console.error("Error adding document: ", e);
     }
 
-})
+});
+
+async function getProductData(uid) {
+    const q = query(
+        collection(db, "products"),
+        where("uid", "==", uid),
+
+    );
+    const querySnapshot = await getDocs(q);
+    productContainer.innerHTML = "";
+    querySnapshot.forEach((doc) => {
+        productContainer.innerHTML += ` <div class="card">
+                <img src="${doc.data().productImg}" alt="Product">
+                <div class="card-content">
+                    <h4>Name : ${doc.data().productName}</h4>
+                    <p>Description : ${doc.data().Description}</p>
+                    <div class="price">Price : $${doc.data().price}</div>
+                </div>
+            </div>`
+        allProducts.unshift({ ...doc.data(), docID: doc.id });
+    });
+};
+
 
 
