@@ -102,7 +102,9 @@ form.addEventListener("submit", async (event) => {
     } catch (e) {
         console.error("Error adding document: ", e);
     }
-
+    productName.value = "";
+    description.value = "";
+    price.value = "";
 });
 
 async function getProductData(uid) {

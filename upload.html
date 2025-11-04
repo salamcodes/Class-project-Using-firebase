@@ -134,53 +134,73 @@
             font-size: 24px;
         }
 
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 25px;
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #f5f6fa;
+            margin: 0;
+            padding: 0;
         }
 
+        .product-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            /* centers when only one card */
+            align-items: flex-start;
+            gap: 25px;
+            padding: 30px;
+        }
+
+        /* Card container */
         .card {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 14px;
+            width: 260px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             overflow: hidden;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-6px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
         }
 
+        /* Product image */
         .card img {
             width: 100%;
-            height: 200px;
+            height: 180px;
             object-fit: cover;
+            border-bottom: 1px solid #eee;
         }
 
+        /* Content styling */
         .card-content {
-            padding: 18px;
+            padding: 15px;
         }
 
         .card-content h4 {
+            font-size: 1.1rem;
             color: #333;
-            font-size: 17px;
             margin-bottom: 8px;
         }
 
         .card-content p {
-            color: #555;
-            font-size: 14px;
-            line-height: 1.5;
+            font-size: 0.9rem;
+            color: #666;
             margin-bottom: 10px;
+            line-height: 1.4;
         }
 
+        /* Price */
         .price {
-            font-weight: bold;
-            color: #6b46c1;
-            font-size: 15px;
+            font-weight: 600;
+            color: #1a73e8;
+            font-size: 1rem;
+            text-align: right;
         }
+
 
         @media (max-width: 600px) {
             nav {
@@ -236,24 +256,6 @@
                     <h4>Wireless Headphones</h4>
                     <p>Experience high-quality sound with powerful bass and long-lasting comfort.</p>
                     <div class="price">$99</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1512499617640-c2f999098e94" alt="Product">
-                <div class="card-content">
-                    <h4>Smart Watch</h4>
-                    <p>Track fitness, notifications, and style your wrist with a modern smartwatch.</p>
-                    <div class="price">$120</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1580910051072-3d30ecb6a7e4" alt="Product">
-                <div class="card-content">
-                    <h4>Professional Camera</h4>
-                    <p>Capture perfect shots with a camera built for professionals and creators.</p>
-                    <div class="price">$550</div>
                 </div>
             </div>
         </div>
