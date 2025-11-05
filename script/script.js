@@ -25,7 +25,7 @@ onAuthStateChanged(auth, (user) => {
 
 
     } else {
-
+upload.style.display = "none"
     }
 });
 loginbtn.addEventListener("click", () => {
