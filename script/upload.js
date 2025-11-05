@@ -3,7 +3,7 @@ import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/
 import {
     collection,
     getDocs,
-    query, where, addDoc
+    query, where, addDoc, Timestamp
 } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-firestore.js";
 import { auth, db } from "./firebaseconfig.js";
 
@@ -91,7 +91,8 @@ form.addEventListener("submit", async (event) => {
         Description: description.value,
         price: price.value,
         productImg: productImage,
-        uid: user.uid
+        uid: user.uid,
+        time: Timestamp.fromDate(new Date())
     }
 
     try {
