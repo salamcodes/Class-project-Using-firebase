@@ -12,7 +12,6 @@ const logOut = document.querySelector(".Logout");
 const upload = document.querySelector(".Upload");
 let profile = document.querySelector(".profile");
 let container = document.querySelector(".products");
-let learnMore = document.querySelectorAll(".learn-btn")
 let allProducts = [];
 onAuthStateChanged(auth, (user) => {
     if (user) {
