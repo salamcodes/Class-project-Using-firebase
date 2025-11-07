@@ -25,7 +25,8 @@ onAuthStateChanged(auth, (user) => {
 
 
     } else {
-upload.style.display = "none"
+        upload.style.display = "none"
+        logOut.style.display = "none"
     }
 });
 loginbtn.addEventListener("click", () => {
@@ -68,8 +69,8 @@ async function getProductData() {
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-        console.log(`${doc.id} => ${doc.data()}`);
-        allProducts.push(doc.data())
+        // console.log(`${doc.id} => ${doc.data()}`);
+        allProducts.push({ ...doc.data(), docId: doc.id })
     });
     renderProducts(allProducts);
 }
@@ -84,8 +85,17 @@ function renderProducts(arr) {
                 <h3>${item.productName}</h3>
                 <p>${item.Description}</p>
                 <span class="price">$${item.price}</span>
-                <button class="learn-btn">Learn More</button>
+                <button class="learn-btn" data-id="${item.docId}">Learn More</button>
             </div>
         </div>`
     })
 };
+
+container.addEventListener("click", (e) => {
+    if (e.target.classList.contains("learn-btn")) {
+        const docId = e.target.getAttribute("data-id");
+        console.log("Clicked docId:", docId);
+        localStorage.setItem("productId", docId)
+        window.location = "product.html"
+    }
+});
