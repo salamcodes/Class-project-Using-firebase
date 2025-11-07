@@ -16,8 +16,8 @@ async function getData() {
             console.log("Product data:", data);
 
             document.querySelector(".product-img").src = data.productImg;
-            document.querySelector("#productName").textContent =data.productName;
-            document.querySelector("#productDescription").textContent ="Description : " +  data.Description;
+            document.querySelector("#productName").textContent = data.productName;
+            document.querySelector("#productDescription").textContent = "Description : " + data.Description;
             document.querySelector("#productPrice").textContent = `Price : $${data.price}`;
         } else {
             console.log("No such document!");
