@@ -112,14 +112,14 @@ async function getProductData(uid) {
     const q = query(collection(db, "products"), where("uid", "==", uid));
     const querySnapshot = await getDocs(q);
 
-    const userProducts = [];
+    // const userProducts = [];
 
     querySnapshot.forEach((doc) => {
-        userProducts.push({ ...doc.data(), docID: doc.id });
+        allProducts.push({ ...doc.data(), docID: doc.id });
     });
 
-    allProducts.length = 0;
-    allProducts.push(...userProducts);
+    // allProducts.length = 0;
+    // allProducts.push(...userProducts);
 
     renderProducts(allProducts);
 }
